@@ -1,6 +1,7 @@
 import math
-WIDTH = 1200
-HEIGHT = 800
+import pygame
+
+WIDTH, HEIGHT = 1200, 800
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
 TILE_SIZE = 100
