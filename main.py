@@ -3,9 +3,6 @@ from player import Player
 from sprites import *
 from ray_casting import ray_casting
 from drawing import Drawing
-pygame.init()
-sc = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-print(sc.get_size())
 sc_map = pygame.Surface((len(matrix_map[0]) * MAP_TILE_SIZE, len(matrix_map) * MAP_TILE_SIZE))
 sprites = Sprites()
 clock = pygame.time.Clock()

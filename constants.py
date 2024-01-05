@@ -1,7 +1,9 @@
 import math
 import pygame
-
-WIDTH, HEIGHT = 1200, 800
+pygame.init()
+sc = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+print(sc.get_size())
+WIDTH, HEIGHT = sc.get_size()
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2
 TILE_SIZE = 100
@@ -12,13 +14,13 @@ MAP_TILE_SIZE = TILE_SIZE // MAP_SCALE
 
 FOV = math.pi / 3
 HALF_FOV = FOV / 2
-NUM_RAYS = 300
-MAX_DEPTH = 800
+NUM_RAYS = WIDTH // 4
+MAX_DEPTH = HEIGHT // 2
 DELTA_ANGLE = FOV / NUM_RAYS
 DIST = NUM_RAYS / (2 * math.tan(HALF_FOV))
 PROJ_COEFF = 3 * DIST * TILE_SIZE
-SCALE = WIDTH // NUM_RAYS
+SCALE = WIDTH / NUM_RAYS
 
-CENTER_RAY = NUM_RAYS // 2 - 1
+CENTER_RAY = NUM_RAYS / 2 - 1
 FAKE_RAYS = 100
 FAKE_RAYS_RANGE = NUM_RAYS - 1 + 2 * FAKE_RAYS
