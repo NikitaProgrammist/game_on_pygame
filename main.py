@@ -1,16 +1,14 @@
-from map_create import matrix_map
 from player import Player
 from sprites import *
 from ray_casting import ray_casting
 from drawing import Drawing
-sc_map = pygame.Surface((len(matrix_map[0]) * MAP_TILE_SIZE, len(matrix_map) * MAP_TILE_SIZE))
+from menu import *
 sprites = Sprites()
 clock = pygame.time.Clock()
 player = Player(sprites)
-drawing = Drawing(sc, sc_map)
-
+drawing = Drawing(sc)
+sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * a + 1) * MAP_TILE_SIZE))
 mini_map_enabled = True
-
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -30,7 +28,7 @@ while True:
     drawing.fps(clock)
 
     if mini_map_enabled:
-        drawing.mini_map(player)
+        drawing.mini_map(player, sc_map)
 
     pygame.display.flip()
     clock.tick(60)

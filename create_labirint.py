@@ -1,4 +1,6 @@
 from random import choice
+from constants import *
+from menu import *
 
 
 class Maze:
@@ -65,3 +67,20 @@ class Maze:
                 if not self.grid[y][x]['left']:
                     maze[cell_y][cell_x - 1] = 0
         return maze
+
+
+maze_map = Maze(a, b)
+maze_map.generate()
+matrix_map = maze_map.to_list_representation()
+WORLD_WIDTH = len(matrix_map[0]) * TILE_SIZE
+WORLD_HEIGHT = len(matrix_map) * TILE_SIZE
+world_map = {}
+mini_map = set()
+collision_walls = []
+for j, row in enumerate(matrix_map):
+    for i, char in enumerate(row):
+        if char:
+            position = (i * TILE_SIZE, j * TILE_SIZE)
+            mini_map.add((i * MAP_TILE_SIZE, j * MAP_TILE_SIZE))
+            collision_walls.append(pygame.Rect(*position, TILE_SIZE, TILE_SIZE))
+            world_map[position] = tex

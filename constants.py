@@ -2,7 +2,6 @@ import math
 import pygame
 pygame.init()
 sc = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-print(sc.get_size())
 WIDTH, HEIGHT = sc.get_size()
 HALF_WIDTH = WIDTH // 2
 HALF_HEIGHT = HEIGHT // 2

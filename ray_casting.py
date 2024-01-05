@@ -1,6 +1,4 @@
-import pygame
-import math
-from map_create import WORLD_WIDTH, world_map, WORLD_HEIGHT
+from create_labirint import WORLD_WIDTH, world_map, WORLD_HEIGHT
 from constants import *
 import math
 import pygame

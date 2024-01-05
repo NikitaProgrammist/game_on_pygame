@@ -1,14 +1,13 @@
 from constants import *
-import pygame
 import math
-from map_create import collision_walls
+from create_labirint import collision_walls
 
 
 class Player:
     def __init__(self, sprites):
         self.position = pygame.math.Vector2((125, 125))
         self.sprites = sprites
-        self.angle = 0
+        self.angle = 4 * math.pi / 3
         self.sensitivity = 0.01
         self.move_speed = 2
         self.rotation_speed = 0.02
