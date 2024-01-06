@@ -2,6 +2,8 @@ from random import choice
 from constants import *
 from menu import *
 
+a, b, tex = menu(sc)
+
 
 class Maze:
     def __init__(self, w, h):

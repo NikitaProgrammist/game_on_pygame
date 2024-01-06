@@ -2,14 +2,15 @@ from player import Player
 from sprites import *
 from ray_casting import ray_casting
 from drawing import Drawing
-from menu import *
+from create_labirint import *
 sprites = Sprites()
 clock = pygame.time.Clock()
 player = Player(sprites)
 drawing = Drawing(sc)
-sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * a + 1) * MAP_TILE_SIZE))
+sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
 mini_map_enabled = True
 while True:
+    pygame.display.set_caption('затерянный в лабиринте')
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit()
