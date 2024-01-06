@@ -15,8 +15,8 @@ class Drawing:
                 self.textures[i] = pygame.transform.scale(self.textures[i], (sc.get_size()[0], sc.get_size()[0] * self.textures[i].get_size()[1] / self.textures[i].get_size()[0]))
 
     def load_textures(self):
-        textures = {f'S{i}': f'img/sky{i}.png' for i in range(1, 5)}
-        textures.update({i: f'img/wall{i + 2}.png' for i in range(1, 5)})
+        textures = {f'S{i}': f'img/sky{i}.png' for i in range(1, 9)}
+        textures.update({i: f'img/wall{i}.png' for i in range(1, 9)})
         return {key: pygame.image.load(path).convert() for key, path in textures.items()}
 
     def background(self, angle):
