@@ -31,6 +31,10 @@ class Drawing:
                 _, object, object_pos = obj
                 self.sc.blit(object, object_pos)
 
+    def timer(self, minutes, seconds):
+        timer_text = self.font.render(str(minutes) + ': ' + str(seconds), True, (0, 0, 0))
+        self.sc.blit(timer_text, (self.sc.get_size()[0] // 2 - 25, 65))
+
     def fps(self, clock):
         display_fps = str(int(clock.get_fps()))
         render = self.font.render(display_fps, 0, (255, 150, 0))
