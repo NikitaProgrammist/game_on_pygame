@@ -26,10 +26,9 @@ def start_game(sc):
         flag_1 = button_1.process()
         flag_2 = button_2.process()
         if flag_1:
-            return game_init(sc)
+            return True
         if flag_2:
             table()
-            return game_init(sc)
         pygame.display.flip()
         clock.tick(60)
 
@@ -119,4 +118,37 @@ def game_init(sc):
 
 
 def menu(sc):
-    pass
+    font = pygame.font.Font(None, 50)
+    font_1 = pygame.font.Font(None, 75)
+    button_0 = Button(sc.get_size()[0] // 2 - 175, 200, 350, 70, font, 'продолжить игру')
+    button_1 = Button(sc.get_size()[0] // 2 - 175, 300, 350, 70, font, 'новая игра')
+    button_2 = Button(sc.get_size()[0] // 2 - 175, 400, 350, 70, font, 'рекорды')
+    button_3 = Button(sc.get_size()[0] // 2 - 175, 500, 350, 70, font, 'выйти из игры')
+    text_surface = font_1.render('затерянный в лабиринте', True, (0, 0, 0))
+    text_rect = text_surface.get_rect()
+    text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, 100)
+    clock = pygame.time.Clock()
+    pygame.mouse.set_visible(True)
+    while True:
+        pygame.draw.rect(sc, (255, 255, 255), (sc.get_size()[0] // 2 - text_rect.width // 2, 100, *text_surface.get_rect()[2:]))
+        sc.blit(text_surface, text_rect)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    return
+        flag_0 = button_0.process()
+        flag_1 = button_1.process()
+        flag_2 = button_2.process()
+        flag_3 = button_3.process()
+        if flag_0:
+            return
+        if flag_1:
+            return True
+        if flag_2:
+            table()
+        if flag_3:
+            quit()
+        pygame.display.flip()
+        clock.tick(60)

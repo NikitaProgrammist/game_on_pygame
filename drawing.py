@@ -1,5 +1,5 @@
 from constants import *
-from create_labirint import mini_map, tex
+from create_labirint import mini_map
 
 
 class Drawing:
@@ -19,7 +19,7 @@ class Drawing:
         textures.update({i: f'img/wall{i}.png' for i in range(1, 9)})
         return {key: pygame.image.load(path).convert() for key, path in textures.items()}
 
-    def background(self, angle):
+    def background(self, angle, tex):
         sky_offset = -10 * math.degrees(angle) % WIDTH
         for offset in (sky_offset - WIDTH, sky_offset, sky_offset + WIDTH):
             self.sc.blit(self.textures[f'S{tex}'], (offset, 0))

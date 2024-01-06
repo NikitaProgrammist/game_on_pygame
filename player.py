@@ -80,9 +80,6 @@ class Player:
         cos_a = math.cos(self.angle)
         keys = pygame.key.get_pressed()
 
-        if keys[pygame.K_ESCAPE]:
-            exit()
-
         move_vector = pygame.math.Vector2(0, 0)
         if keys[pygame.K_w]:
             move_vector += self.move_speed * pygame.math.Vector2(cos_a, sin_a)

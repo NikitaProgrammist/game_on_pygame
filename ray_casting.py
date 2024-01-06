@@ -1,7 +1,5 @@
-from create_labirint import WORLD_WIDTH, world_map, WORLD_HEIGHT
 from constants import *
-import math
-import pygame
+from create_labirint import world_map
 
 
 def mapping(a, b):
@@ -9,7 +7,7 @@ def mapping(a, b):
     return (a // TILE_SIZE) * TILE_SIZE, (b // TILE_SIZE) * TILE_SIZE
 
 
-def ray_casting(player_pos, player_angle, textures, sc):
+def ray_casting(player_pos, player_angle, textures, WORLD_WIDTH, WORLD_HEIGHT):
     casted_walls = []
     ox, oy = player_pos
     xm, ym = mapping(ox, oy)

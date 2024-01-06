@@ -2,8 +2,6 @@ from random import choice
 from constants import *
 from menu import *
 
-a, b, tex = start_game(sc)
-
 
 class Maze:
     def __init__(self, w, h):
@@ -71,18 +69,27 @@ class Maze:
         return maze
 
 
-maze_map = Maze(a, b)
-maze_map.generate()
-matrix_map = maze_map.to_list_representation()
-WORLD_WIDTH = len(matrix_map[0]) * TILE_SIZE
-WORLD_HEIGHT = len(matrix_map) * TILE_SIZE
 world_map = {}
 mini_map = set()
 collision_walls = []
-for j, row in enumerate(matrix_map):
-    for i, char in enumerate(row):
-        if char:
-            position = (i * TILE_SIZE, j * TILE_SIZE)
-            mini_map.add((i * MAP_TILE_SIZE, j * MAP_TILE_SIZE))
-            collision_walls.append(pygame.Rect(*position, TILE_SIZE, TILE_SIZE))
-            world_map[position] = tex
+
+
+def create_labirint():
+    global world_map, mini_map, collision_walls
+    world_map.clear()
+    mini_map.clear()
+    collision_walls.clear()
+    a, b, tex = game_init(sc)
+    maze_map = Maze(a, b)
+    maze_map.generate()
+    matrix_map = maze_map.to_list_representation()
+    WORLD_WIDTH = len(matrix_map[0]) * TILE_SIZE
+    WORLD_HEIGHT = len(matrix_map) * TILE_SIZE
+    for j, row in enumerate(matrix_map):
+        for i, char in enumerate(row):
+            if char:
+                position = (i * TILE_SIZE, j * TILE_SIZE)
+                mini_map.add((i * MAP_TILE_SIZE, j * MAP_TILE_SIZE))
+                collision_walls.append(pygame.Rect(*position, TILE_SIZE, TILE_SIZE))
+                world_map[position] = tex
+    return a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT
