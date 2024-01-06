@@ -3,12 +3,15 @@ from sprites import *
 from ray_casting import ray_casting
 from drawing import Drawing
 from create_labirint import *
+from buttons import Button
 sprites = Sprites()
 clock = pygame.time.Clock()
 player = Player(sprites)
 drawing = Drawing(sc)
 sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
 mini_map_enabled = True
+font = pygame.font.Font(None, 30)
+button = Button(sc.get_size()[0] - 65, 0, 65, 65, font, '...')
 while True:
     pygame.display.set_caption('затерянный в лабиринте')
     for event in pygame.event.get():
@@ -30,6 +33,6 @@ while True:
 
     if mini_map_enabled:
         drawing.mini_map(player, sc_map)
-
+    flag = button.process()
     pygame.display.flip()
     clock.tick(60)

@@ -20,21 +20,21 @@ class Drawing:
         return {key: pygame.image.load(path).convert() for key, path in textures.items()}
 
     def background(self, angle):
-        sky_offset = -10 * math.degrees(angle) % self.sc.get_size()[0]
-        for offset in (sky_offset - self.sc.get_size()[0], sky_offset, sky_offset + self.sc.get_size()[0]):
+        sky_offset = -10 * math.degrees(angle) % WIDTH
+        for offset in (sky_offset - WIDTH, sky_offset, sky_offset + WIDTH):
             self.sc.blit(self.textures[f'S{tex}'], (offset, 0))
-        pygame.draw.rect(self.sc, (40, 40, 40), (0, self.sc.get_size()[1] // 2, self.sc.get_size()[0], self.sc.get_size()[1] // 2))
+        pygame.draw.rect(self.sc, (40, 40, 40), (0, HALF_HEIGHT, WIDTH, HALF_HEIGHT))
 
     def world(self, world_objects):
         for obj in sorted(world_objects, key=lambda n: n[0], reverse=True):
             if obj[0]:
                 _, object, object_pos = obj
-                self.sc.blit(object, (object_pos[0] * self.sc.get_size()[0] / WIDTH, object_pos[1] * self.sc.get_size()[1] / HEIGHT))
+                self.sc.blit(object, object_pos)
 
     def fps(self, clock):
         display_fps = str(int(clock.get_fps()))
         render = self.font.render(display_fps, 0, (255, 150, 0))
-        self.sc.blit(render, (self.sc.get_size()[0] - 65, 5))
+        self.sc.blit(render, (WIDTH - 65, HEIGHT - 65))
 
     def mini_map(self, player, sc_map):
         sc_map.fill((0, 0, 0))

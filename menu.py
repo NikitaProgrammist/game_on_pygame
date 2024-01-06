@@ -1,7 +1,40 @@
 import pygame
+from buttons import Button
 
 
-def menu(sc):
+def table():
+    pass
+
+
+def start_game(sc):
+    font = pygame.font.Font(None, 50)
+    button_1 = Button(sc.get_size()[0] // 2 - 125, 200, 250, 70, font, 'новая игра')
+    button_2 = Button(sc.get_size()[0] // 2 - 125, 300, 250, 70, font, 'рекорды')
+    text_surface = font.render('затерянный в лабиринте', True, (0, 0, 0))
+    text_rect = text_surface.get_rect()
+    text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, 100)
+    clock = pygame.time.Clock()
+    while True:
+        sc.fill((255, 255, 255))
+        sc.blit(text_surface, text_rect)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    quit()
+        flag_1 = button_1.process()
+        flag_2 = button_2.process()
+        if flag_1:
+            return game_init(sc)
+        if flag_2:
+            table()
+            return game_init(sc)
+        pygame.display.flip()
+        clock.tick(60)
+
+
+def game_init(sc):
     finput = False
     text = ''
     tick = 30
@@ -10,14 +43,14 @@ def menu(sc):
     text_surface = font.render('Выберите локацию, на которой вы хотите проходить лабиринт.', True, (0, 0, 0))
     text_rect = text_surface.get_rect()
     text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, 100)
-    location_buttons = [pygame.Rect(100 + 200 * i, 400, 180, 100) for i in range(4)] + [pygame.Rect(100 + 200 * i, 600, 180, 100) for i in range(4)]
+    location_buttons = [pygame.Rect(sc.get_size()[0] // 2 - 580 + 300 * i, 250, 250, 250) for i in range(4)] + [pygame.Rect(sc.get_size()[0] // 2 - 580 + 300 * i, 550, 250, 250) for i in range(4)]
     run = True
     while run:
         sc.fill((255, 255, 255))
         sc.blit(text_surface, text_rect)
         for i, btn in enumerate(location_buttons, 1):
             pygame.draw.rect(sc, (0, 0, 0), btn)
-            sc.blit(pygame.image.load(f'img/wall{i}.png'), (btn.x, btn.y))
+            sc.blit(pygame.image.load(f'img/location{i}.png'), (btn.x, btn.y))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
@@ -83,3 +116,7 @@ def menu(sc):
             sc.blit(text_surface_4, text_rect_4)
         pygame.display.flip()
         clock.tick(60)
+
+
+def menu(sc):
+    pass

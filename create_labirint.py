@@ -2,7 +2,7 @@ from random import choice
 from constants import *
 from menu import *
 
-a, b, tex = menu(sc)
+a, b, tex = start_game(sc)
 
 
 class Maze:
