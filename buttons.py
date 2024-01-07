@@ -1,6 +1,4 @@
-import pygame
-
-from constants import sc
+from constants import *
 
 
 class Button:

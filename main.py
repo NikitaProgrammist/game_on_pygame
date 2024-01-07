@@ -4,15 +4,13 @@ from ray_casting import ray_casting
 from drawing import Drawing
 from create_labirint import *
 from buttons import Button
-
-if start_game(sc):
-    a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT = create_labirint()
-else:
-    quit()
+start_game(sc)
+a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT = create_labirint()
 sprites = Sprites()
 clock = pygame.time.Clock()
 player = Player(sprites)
 drawing = Drawing(sc)
+sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
 mini_map_enabled = True
 font = pygame.font.Font(None, 30)
 button = Button(sc.get_size()[0] - 65, 0, 65, 65, font, '...')
@@ -32,6 +30,7 @@ while True:
                 sprites = Sprites()
                 clock = pygame.time.Clock()
                 player = Player(sprites)
+                sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
                 start_ticks = pygame.time.get_ticks()
         elif event.type == pygame.KEYUP and event.key == pygame.K_q:
             mini_map_enabled = not mini_map_enabled
@@ -51,9 +50,19 @@ while True:
 
     drawing.fps(clock)
 
-    if mini_map_enabled:
-        sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
-        drawing.mini_map(player, sc_map)
+    game_flag = drawing.mini_map(player, sc_map, mini_map_enabled)
+    if game_flag:
+        new_game_flag = win(sc, minutes, seconds, a, b)
+        if new_game_flag:
+            pygame.mouse.set_visible(True)
+            start_game(sc)
+            a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT = create_labirint()
+            sprites = Sprites()
+            clock = pygame.time.Clock()
+            player = Player(sprites)
+            sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
+            start_ticks = pygame.time.get_ticks()
+
     flag = button.process()
     if flag:
         stop_time = pygame.time.get_ticks()
@@ -65,6 +74,7 @@ while True:
             sprites = Sprites()
             clock = pygame.time.Clock()
             player = Player(sprites)
+            sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
             start_ticks = pygame.time.get_ticks()
     pygame.display.flip()
     clock.tick(60)

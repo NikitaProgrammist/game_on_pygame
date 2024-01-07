@@ -2,7 +2,7 @@ import pygame
 from buttons import Button
 
 
-def table():
+def table(sc):
     pass
 
 
@@ -30,7 +30,7 @@ def start_game(sc):
         if flag_1:
             return True
         if flag_2:
-            table()
+            table(sc)
         if flag_3:
             quit()
         pygame.display.flip()
@@ -106,12 +106,10 @@ def game_init(sc):
                 text += '|'
         if finput:
             tick -= 1
-            if tick == 0:
-                text = text.replace('|', '')
-            if tick == -30:
-                text += '|'
+            if tick <= 0:
+                text = text[:-1] if text.endswith('|') else text + '|'
                 tick = 30
-        if len(text):
+        if text:
             font = pygame.font.Font(None, 50)
             text_surface_4 = font.render(text, True, (0, 0, 0))
             text_rect_4 = text_surface_3.get_rect()
@@ -151,8 +149,25 @@ def menu(sc):
         if flag_1:
             return True
         if flag_2:
-            table()
+            table(sc)
         if flag_3:
             quit()
         pygame.display.flip()
         clock.tick(60)
+
+
+def win(sc, minutes, seconds, a, b):
+    font = pygame.font.Font(None, 75)
+    text_surface = font.render('Поздравляю!', True, (255, 255, 255))
+    text_rect = text_surface.get_rect()
+    text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, sc.get_size()[1] // 2 - text_rect.height // 2 - 200)
+    text_surface_1 = font.render(f'Вы прошли лабиринт {a} на {b} за {minutes}: {seconds}', True, (255, 255, 255))
+    text_rect_1 = text_surface.get_rect()
+    text_rect_1.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2 - 250, sc.get_size()[1] // 2 - text_rect.height // 2)
+    while True:
+        sc.blit(text_surface, text_rect)
+        sc.blit(text_surface_1, text_rect_1)
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                return True
+        pygame.display.flip()

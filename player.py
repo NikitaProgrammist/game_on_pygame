@@ -1,6 +1,4 @@
 from constants import *
-import pygame
-import math
 from create_labirint import collision_walls
 
 

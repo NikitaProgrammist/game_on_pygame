@@ -8,7 +8,7 @@ class Drawing:
         self.text = ''
         self.tick = 30
         self.finput = False
-        self.font = pygame.font.SysFont('Arial', 36, bold=True)
+        self.font = pygame.font.SysFont('Arial', 36, True)
         self.textures = self.load_textures()
         for i in self.textures:
             if 'S' in str(i):
@@ -41,7 +41,7 @@ class Drawing:
         render = self.font.render(display_fps, 0, (255, 150, 0))
         self.sc.blit(render, (WIDTH - 65, HEIGHT - 65))
 
-    def mini_map(self, player, sc_map):
+    def mini_map(self, player, sc_map, mini_map_enabled):
         sc_map.fill((0, 0, 0))
         map_x, map_y = int(player.x // MAP_SCALE), int(player.y // MAP_SCALE)
         direction = (map_x + 10 * math.cos(player.angle), map_y + 10 * math.sin(player.angle))
@@ -49,4 +49,9 @@ class Drawing:
         pygame.draw.circle(sc_map, (255, 0, 0), (map_x, map_y), 5)
         for x, y in mini_map:
             pygame.draw.rect(sc_map, (100, 65, 25), (x, y, MAP_TILE_SIZE, MAP_TILE_SIZE))
-        self.sc.blit(sc_map, (0, 0), area=(map_x - 50, map_y - 50, map_x + 150, map_y + 150))
+        rect = pygame.Rect((sc_map.get_size()[0] - 2 * MAP_TILE_SIZE, sc_map.get_size()[1] - MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE))
+        pygame.draw.rect(sc_map, (255, 215, 0), rect)
+        if mini_map_enabled:
+            self.sc.blit(sc_map, (0, 0), (map_x - 50, map_y - 50, map_x + 150, map_y + 150))
+        if rect.collidepoint(direction):
+            return True
