@@ -52,8 +52,8 @@ class Maze:
             else:
                 break
 
-    def to_list_representation(self):
-        maze = [[1 for _ in range(self.cols * 2 + 1)] for _ in range(self.rows * 2 + 1)]
+    def to_list_representation(self, tex):
+        maze = [[tex for _ in range(self.cols * 2 + 1)] for _ in range(self.rows * 2 + 1)]
         for y in range(self.rows):
             for x in range(self.cols):
                 cell_x, cell_y = x * 2 + 1, y * 2 + 1
@@ -82,7 +82,8 @@ def create_labirint():
     a, b, tex = game_init(sc)
     maze_map = Maze(a, b)
     maze_map.generate()
-    matrix_map = maze_map.to_list_representation()
+    matrix_map = maze_map.to_list_representation(tex)
+    matrix_map[-1][-2] += 10
     WORLD_WIDTH = len(matrix_map[0]) * TILE_SIZE
     WORLD_HEIGHT = len(matrix_map) * TILE_SIZE
     for j, row in enumerate(matrix_map):
@@ -91,5 +92,5 @@ def create_labirint():
                 position = (i * TILE_SIZE, j * TILE_SIZE)
                 mini_map.add((i * MAP_TILE_SIZE, j * MAP_TILE_SIZE))
                 collision_walls.append(pygame.Rect(*position, TILE_SIZE, TILE_SIZE))
-                world_map[position] = tex
+                world_map[position] = char
     return a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT
