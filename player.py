@@ -86,7 +86,7 @@ class Player:
             move_vector += self.move_speed * pygame.math.Vector2(sin_a, -cos_a)
         if keys[pygame.K_d]:
             move_vector -= self.move_speed * pygame.math.Vector2(sin_a, -cos_a)
-        if keys[pygame.K_e]:
+        if keys[pygame.K_LSHIFT]:
             self.move_speed += 4
         else:
             self.move_speed = 2
