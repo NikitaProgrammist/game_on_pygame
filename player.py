@@ -5,9 +5,8 @@ from create_labirint import collision_walls
 
 
 class Player:
-    def __init__(self, sprites):
+    def __init__(self):
         self.position = pygame.math.Vector2((125, 125))
-        self.sprites = sprites
         self.angle = 4 * math.pi / 3
         self.sensitivity = 0.01
         self.move_speed = 2
@@ -15,9 +14,7 @@ class Player:
         self.mouse_move = True
         self.side = 50
         self.rect = pygame.Rect(*self.position, self.side, self.side)
-        self.collision_sprites = [pygame.Rect(*obj.pos, obj.side, obj.side) for obj in
-                                  self.sprites.list_of_objects if obj.blocked]
-        self.collision_list = collision_walls + self.collision_sprites
+        self.collision_walls = collision_walls
 
     @property
     def pos(self):
@@ -34,7 +31,7 @@ class Player:
     def detect_collision(self, move_vector):
         next_rect = self.rect.copy()
         next_rect.move_ip(*move_vector)
-        hit_indexes = next_rect.collidelistall(self.collision_list)
+        hit_indexes = next_rect.collidelistall(self.collision_walls)
 
         if hit_indexes:
             delta_x, delta_y = self.calculate_collision_delta(next_rect, hit_indexes, move_vector)
@@ -45,7 +42,7 @@ class Player:
     def calculate_collision_delta(self, next_rect, hit_indexes, move_vector):
         delta_x, delta_y = 0, 0
         for hit_index in hit_indexes:
-            hit_rect = self.collision_list[hit_index]
+            hit_rect = self.collision_walls[hit_index]
             if move_vector.x > 0:
                 delta_x += next_rect.right - hit_rect.left
             elif move_vector.x < 0:

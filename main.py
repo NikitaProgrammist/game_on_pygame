@@ -1,14 +1,12 @@
 from player import Player
-from sprites import *
 from ray_casting import ray_casting
 from drawing import Drawing
 from create_labirint import *
 from buttons import Button
 start_game(sc)
 a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT = create_labirint()
-sprites = Sprites()
 clock = pygame.time.Clock()
-player = Player(sprites)
+player = Player()
 drawing = Drawing(sc)
 sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
 mini_map_enabled = True
@@ -27,9 +25,8 @@ while True:
             start_ticks += seconds
             if flag_1:
                 a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT = create_labirint()
-                sprites = Sprites()
                 clock = pygame.time.Clock()
-                player = Player(sprites)
+                player = Player()
                 sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
                 start_ticks = pygame.time.get_ticks()
         elif event.type == pygame.KEYUP and event.key == pygame.K_q:
@@ -41,8 +38,7 @@ while True:
     drawing.background(player.angle, tex)
 
     walls = ray_casting(player.pos, player.angle, drawing.textures, WORLD_WIDTH, WORLD_HEIGHT)
-    objects = [obj.object_locate(player) for obj in sprites.list_of_objects]
-    drawing.world(walls + objects)
+    drawing.world(walls)
     seconds = (pygame.time.get_ticks() - start_ticks) // 1000
     minutes = seconds // 60
     seconds = seconds % 60
@@ -57,9 +53,8 @@ while True:
             pygame.mouse.set_visible(True)
             start_game(sc)
             a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT = create_labirint()
-            sprites = Sprites()
             clock = pygame.time.Clock()
-            player = Player(sprites)
+            player = Player()
             sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
             start_ticks = pygame.time.get_ticks()
 
@@ -71,9 +66,8 @@ while True:
         start_ticks += seconds
         if flag_1:
             a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT = create_labirint()
-            sprites = Sprites()
             clock = pygame.time.Clock()
-            player = Player(sprites)
+            player = Player()
             sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
             start_ticks = pygame.time.get_ticks()
     pygame.display.flip()
