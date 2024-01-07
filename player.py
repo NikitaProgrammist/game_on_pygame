@@ -1,3 +1,5 @@
+import pygame
+
 from constants import *
 from create_labirint import collision_walls
 
@@ -87,6 +89,10 @@ class Player:
             move_vector += self.move_speed * pygame.math.Vector2(sin_a, -cos_a)
         if keys[pygame.K_d]:
             move_vector -= self.move_speed * pygame.math.Vector2(sin_a, -cos_a)
+        if keys[pygame.K_e]:
+            self.move_speed += 4
+        else:
+            self.move_speed = 2
 
         corrected_move = self.detect_collision(move_vector)
         self.position += corrected_move
