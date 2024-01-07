@@ -10,6 +10,7 @@ def start_game(sc):
     font = pygame.font.Font(None, 50)
     button_1 = Button(sc.get_size()[0] // 2 - 125, 200, 250, 70, font, 'новая игра')
     button_2 = Button(sc.get_size()[0] // 2 - 125, 300, 250, 70, font, 'рекорды')
+    button_3 = Button(sc.get_size()[0] // 2 - 125, 400, 250, 70, font, 'выйти из игры')
     text_surface = font.render('затерянный в лабиринте', True, (0, 0, 0))
     text_rect = text_surface.get_rect()
     text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, 100)
@@ -25,10 +26,13 @@ def start_game(sc):
                     quit()
         flag_1 = button_1.process()
         flag_2 = button_2.process()
+        flag_3 = button_3.process()
         if flag_1:
             return True
         if flag_2:
             table()
+        if flag_3:
+            quit()
         pygame.display.flip()
         clock.tick(60)
 
