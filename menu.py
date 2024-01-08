@@ -1,4 +1,5 @@
 import pygame
+import sqlite3
 from buttons import Button
 
 
@@ -156,7 +157,18 @@ def menu(sc):
         clock.tick(60)
 
 
-def win(sc, minutes, seconds, a, b):
+def win(sc, minutes, seconds, a, b, tex):
+    con = sqlite3.connect('records.sqlite')
+    cur = con.cursor()
+    result = cur.execute(f"""SELECT * FROM record WHERE width = {a} AND height = {b}""").fetchone()
+    if not result:
+        cur.execute(f"""INSERT INTO record (width, height, minutes, seconds, location) VALUES 
+            ({a}, {b}, {minutes}, {seconds}, {tex})""")
+    elif result and (int(result[-3]) > minutes or (int(result[-3]) == minutes and int(result[-2]) > seconds)):
+        cur.execute(f"""REPLACE INTO record (id, width, height, minutes, seconds, location) VALUES 
+            ({result[0]}, {a}, {b}, {minutes}, {seconds}, {tex})""")
+    con.commit()
+    con.close()
     font = pygame.font.Font(None, 75)
     text_surface = font.render('Поздравляю!', True, (255, 255, 255))
     text_rect = text_surface.get_rect()

@@ -48,7 +48,7 @@ while True:
 
     game_flag = drawing.mini_map(player, sc_map, mini_map_enabled)
     if game_flag:
-        new_game_flag = win(sc, minutes, seconds, a, b)
+        new_game_flag = win(sc, minutes, seconds, a, b, tex)
         if new_game_flag:
             pygame.mouse.set_visible(True)
             start_game(sc)
