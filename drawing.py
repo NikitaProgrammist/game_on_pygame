@@ -5,6 +5,7 @@ from create_labirint import mini_map
 class DrawMainScreen:
     def __init__(self, sc):
         self.sc = sc
+        self.font = pygame.font.SysFont('Arial', 36, True)
         self.textures = self.load_textures()
         for i in self.textures:
             if 'S' in str(i):
