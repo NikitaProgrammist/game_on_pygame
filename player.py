@@ -1,5 +1,3 @@
-import pygame
-
 from constants import *
 from create_labirint import collision_walls
 

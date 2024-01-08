@@ -12,16 +12,16 @@ class Maze:
     def remove_walls(self, x1, y1, x2, y2):
         dx = x1 - x2
         dy = y1 - y2
-        if dx == 1: # Левая стена
+        if dx == 1:
             self.grid[y1][x1]['left'] = False
             self.grid[y2][x2]['right'] = False
-        elif dx == -1: # Правая стена
+        elif dx == -1:
             self.grid[y1][x1]['right'] = False
             self.grid[y2][x2]['left'] = False
-        if dy == 1: # Верхняя стена
+        if dy == 1:
             self.grid[y1][x1]['top'] = False
             self.grid[y2][x2]['bottom'] = False
-        elif dy == -1: # Нижняя стена
+        elif dy == -1:
             self.grid[y1][x1]['bottom'] = False
             self.grid[y2][x2]['top'] = False
 

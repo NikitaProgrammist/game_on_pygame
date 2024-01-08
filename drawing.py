@@ -2,17 +2,16 @@ from constants import *
 from create_labirint import mini_map
 
 
-class Drawing:
+class DrawMainScreen:
     def __init__(self, sc):
         self.sc = sc
-        self.text = ''
-        self.tick = 30
-        self.finput = False
-        self.font = pygame.font.SysFont('Arial', 36, True)
         self.textures = self.load_textures()
         for i in self.textures:
             if 'S' in str(i):
-                self.textures[i] = pygame.transform.scale(self.textures[i], (sc.get_size()[0], sc.get_size()[0] * self.textures[i].get_size()[1] / self.textures[i].get_size()[0]))
+                self.textures[i] = pygame.transform.scale(self.textures[i],
+                                                          (sc.get_size()[0], sc.get_size()[0] *
+                                                           self.textures[i].get_size()[1] /
+                                                           self.textures[i].get_size()[0]))
 
     def load_textures(self):
         textures = {f'S{i}': f'img/sky{i}.png' for i in range(1, 9)}
@@ -26,8 +25,8 @@ class Drawing:
             self.sc.blit(self.textures[f'S{tex}'], (offset, 0))
         pygame.draw.rect(self.sc, (40, 40, 40), (0, HALF_HEIGHT, WIDTH, HALF_HEIGHT))
 
-    def world(self, world_objects):
-        for obj in sorted(world_objects, key=lambda n: n[0], reverse=True):
+    def world(self, walls):
+        for obj in sorted(walls, key=lambda n: n[0], reverse=True):
             if obj[0]:
                 _, object, object_pos = obj
                 self.sc.blit(object, object_pos)

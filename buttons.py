@@ -2,33 +2,22 @@ from constants import *
 
 
 class Button:
-    def __init__(self, x, y, width, height, font, buttonText='Button', press=False):
-        self.x = x
-        self.y = y
+    def __init__(self, x, y, width, height, font, buttontext='Button', press=False):
         self.width = width
         self.height = height
         self.press = press
-        self.font = font
-        self.colors = {
-            'normal': '#ffffff',
-            'hover': '#666666',
-            'pressed': '#333333',
-        }
-
         self.buttonscreen = pygame.Surface((self.width, self.height))
-        self.buttonrect = pygame.Rect(self.x, self.y, self.width, self.height)
-
-        self.buttonsurface = self.font.render(buttonText, True, (20, 20, 20))
-
+        self.buttonrect = pygame.Rect(x, y, self.width, self.height)
+        self.buttonsurface = font.render(buttontext, True, (20, 20, 20))
         self.pressed = False
 
     def process(self):
         pos = pygame.mouse.get_pos()
-        self.buttonscreen.fill(self.colors['normal'])
+        self.buttonscreen.fill((255, 255, 255))
         if self.buttonrect.collidepoint(pos):
-            self.buttonscreen.fill(self.colors['hover'])
+            self.buttonscreen.fill((100, 100, 100))
             if pygame.mouse.get_pressed()[0]:
-                self.buttonscreen.fill(self.colors['pressed'])
+                self.buttonscreen.fill((50, 50, 50))
                 if self.press:
                     return True
                 elif not self.pressed:
