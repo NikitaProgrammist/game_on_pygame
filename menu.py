@@ -4,7 +4,40 @@ from buttons import Button
 
 
 def table(sc):
-    pass
+    font = pygame.font.Font(None, 36)
+    cell_width = sc.get_size()[0] // 4
+    cell_height = 50
+    count = sc.get_size()[1] // cell_height
+    start = 0
+    stop = count
+    con = sqlite3.connect('records.sqlite')
+    cur = con.cursor()
+    result = cur.execute("SELECT width, height, minutes, seconds, location from record").fetchall()
+    result = sorted(result, key=lambda x: x[0] + x[1])
+    result = list(map(lambda x: [str(x[0]), str(x[1]), f'{x[2]}: {x[3]:02}', str(x[4])], result))
+    result.insert(0, ['ширина поля', 'длина поля', 'время прохождения', 'номер локации'])
+    table_data = result[start:stop + 1]
+    while True:
+        sc.fill((255, 255, 255))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                return
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 4:
+                    start = max(0, start - 1)
+                    stop = start + count
+                elif event.button == 5:
+                    stop = min(len(result), stop + 1)
+                    start = stop - count
+                table_data = result[start:stop + 1]
+        for row in range(len(table_data)):
+            for column in range(len(table_data[row])):
+                pygame.draw.rect(sc, (0, 0, 0), [column * cell_width, row * cell_height, cell_width, cell_height], 1)
+                cell_text = font.render(table_data[row][column], True, (0, 0, 0))
+                sc.blit(cell_text, (column * cell_width + 10, row * cell_height + 10))
+        pygame.display.flip()
 
 
 def start_game(sc):
@@ -164,7 +197,7 @@ def win(sc, minutes, seconds, a, b, tex):
     if not result:
         cur.execute(f"""INSERT INTO record (width, height, minutes, seconds, location) VALUES 
             ({a}, {b}, {minutes}, {seconds}, {tex})""")
-    elif result and (int(result[-3]) > minutes or (int(result[-3]) == minutes and int(result[-2]) > seconds)):
+    elif result and (result[-3] > minutes or (result[-3] == minutes and result[-2] > seconds)):
         cur.execute(f"""REPLACE INTO record (id, width, height, minutes, seconds, location) VALUES 
             ({result[0]}, {a}, {b}, {minutes}, {seconds}, {tex})""")
     con.commit()
@@ -173,7 +206,7 @@ def win(sc, minutes, seconds, a, b, tex):
     text_surface = font.render('Поздравляю!', True, (255, 255, 255))
     text_rect = text_surface.get_rect()
     text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, sc.get_size()[1] // 2 - text_rect.height // 2 - 200)
-    text_surface_1 = font.render(f'Вы прошли лабиринт {a} на {b} за {minutes}: {seconds}', True, (255, 255, 255))
+    text_surface_1 = font.render(f'Вы прошли лабиринт {a} на {b} за {minutes}: {seconds:02}', True, (255, 255, 255))
     text_rect_1 = text_surface.get_rect()
     text_rect_1.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2 - 250, sc.get_size()[1] // 2 - text_rect.height // 2)
     while True:
