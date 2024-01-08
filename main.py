@@ -7,7 +7,7 @@ start_game(sc)
 a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT = create_labirint()
 clock = pygame.time.Clock()
 player = Player()
-draw = DrawMainScreen()
+draw = DrawMainScreen(sc)
 sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
 mini_map_enabled = True
 button = Button(sc.get_size()[0] - 65, 0, 65, 65, pygame.font.Font(None, 30), '...')
