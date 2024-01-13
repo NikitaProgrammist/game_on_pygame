@@ -33,7 +33,7 @@ class DrawMainScreen:
                 self.sc.blit(object, object_pos)
 
     def timer(self, minutes, seconds):
-        timer_text = self.font.render(str(minutes) + ': ' + str(seconds), True, (0, 0, 0))
+        timer_text = self.font.render(f"{minutes}: {seconds:02}", True, (0, 0, 0))
         self.sc.blit(timer_text, (self.sc.get_size()[0] // 2 - 25, 65))
 
     def fps(self, clock):
