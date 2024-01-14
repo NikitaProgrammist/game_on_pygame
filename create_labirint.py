@@ -1,5 +1,4 @@
 from random import choice
-from constants import *
 from menu import *
 
 
