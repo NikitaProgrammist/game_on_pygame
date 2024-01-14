@@ -1,6 +1,10 @@
-import pygame
+from constants import *
 import sqlite3
 from buttons import Button
+
+
+image = pygame.image.load('img/menu.png')
+image = pygame.transform.scale(image, sc.get_size())
 
 
 def table(sc):
@@ -18,7 +22,7 @@ def table(sc):
     result.insert(0, ['ширина поля', 'длина поля', 'время прохождения', 'номер локации'])
     table_data = result[start:stop + 1]
     while True:
-        sc.fill((255, 255, 255))
+        sc.blit(image, (0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -34,8 +38,8 @@ def table(sc):
                 table_data = result[start:stop + 1]
         for row in range(len(table_data)):
             for column in range(len(table_data[row])):
-                pygame.draw.rect(sc, (0, 0, 0), [column * cell_width, row * cell_height, cell_width, cell_height], 1)
-                cell_text = font.render(table_data[row][column], True, (0, 0, 0))
+                pygame.draw.rect(sc, (255, 50, 50), [column * cell_width, row * cell_height, cell_width, cell_height], 1)
+                cell_text = font.render(table_data[row][column], True, (255, 50, 50))
                 sc.blit(cell_text, (column * cell_width + 10, row * cell_height + 10))
         pygame.display.flip()
 
@@ -45,12 +49,12 @@ def start_game(sc):
     button_1 = Button(sc.get_size()[0] // 2 - 125, 200, 250, 70, font, 'новая игра')
     button_2 = Button(sc.get_size()[0] // 2 - 125, 300, 250, 70, font, 'рекорды')
     button_3 = Button(sc.get_size()[0] // 2 - 125, 400, 250, 70, font, 'выйти из игры')
-    text_surface = font.render('затерянный в лабиринте', True, (0, 0, 0))
+    text_surface = font.render('ЗАТЕРЯННЫЙ В ЛАБИРИНТЕ', True, (0, 0, 0))
     text_rect = text_surface.get_rect()
     text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, 100)
     clock = pygame.time.Clock()
     while True:
-        sc.fill((255, 255, 255))
+        sc.blit(image, (0, 0))
         sc.blit(text_surface, text_rect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -83,7 +87,7 @@ def game_init(sc):
     location_buttons = [pygame.Rect(sc.get_size()[0] // 2 - 580 + 300 * i, 250, 250, 250) for i in range(4)] + [pygame.Rect(sc.get_size()[0] // 2 - 580 + 300 * i, 550, 250, 250) for i in range(4)]
     run = True
     while run:
-        sc.fill((255, 255, 255))
+        sc.blit(image, (0, 0))
         sc.blit(text_surface, text_rect)
         for i, btn in enumerate(location_buttons, 1):
             pygame.draw.rect(sc, (0, 0, 0), btn)
@@ -110,7 +114,7 @@ def game_init(sc):
     text_rect_3 = text_surface_3.get_rect()
     text_rect_3.topleft = (sc.get_size()[0] // 2 - text_rect_3.width // 2, 200)
     while True:
-        sc.fill((255, 255, 255))
+        sc.blit(image, (0, 0))
         sc.blit(text_surface_2, text_rect_2)
         sc.blit(text_surface_3, text_rect_3)
         rect = pygame.Rect((sc.get_size()[0] - 200) // 2, 400, 200, 70)
@@ -155,18 +159,19 @@ def game_init(sc):
 
 def menu(sc):
     font = pygame.font.Font(None, 50)
-    font_1 = pygame.font.Font(None, 75)
-    button_0 = Button(sc.get_size()[0] // 2 - 175, 200, 350, 70, font, 'продолжить игру')
-    button_1 = Button(sc.get_size()[0] // 2 - 175, 300, 350, 70, font, 'новая игра')
-    button_2 = Button(sc.get_size()[0] // 2 - 175, 400, 350, 70, font, 'рекорды')
-    button_3 = Button(sc.get_size()[0] // 2 - 175, 500, 350, 70, font, 'выйти из игры')
-    text_surface = font_1.render('затерянный в лабиринте', True, (0, 0, 0))
+    button_0 = Button(sc.get_size()[0] // 2 - 175, 300, 350, 70, font, 'продолжить игру')
+    button_1 = Button(sc.get_size()[0] // 2 - 175, 400, 350, 70, font, 'новая игра')
+    button_2 = Button(sc.get_size()[0] // 2 - 175, 500, 350, 70, font, 'рекорды')
+    button_3 = Button(sc.get_size()[0] // 2 - 175, 600, 350, 70, font, 'выйти из игры')
+    text_surface = font.render('ЗАТЕРЯННЫЙ В ЛАБИРИНТЕ', True, (0, 0, 0))
     text_rect = text_surface.get_rect()
-    text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, 100)
+    text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, 200)
     clock = pygame.time.Clock()
     pygame.mouse.set_visible(True)
+    flag = False
     while True:
-        pygame.draw.rect(sc, (255, 255, 255), (sc.get_size()[0] // 2 - text_rect.width // 2, 100, *text_surface.get_rect()[2:]))
+        if flag:
+            sc.blit(image, (0, 0))
         sc.blit(text_surface, text_rect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -184,6 +189,7 @@ def menu(sc):
             return True
         if flag_2:
             table(sc)
+            flag = True
         if flag_3:
             quit()
         pygame.display.flip()

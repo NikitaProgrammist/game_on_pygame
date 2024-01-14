@@ -24,6 +24,8 @@ while True:
             start_ticks += seconds
             if flag_1:
                 a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT = create_labirint()
+                player = Player()
+                draw = DrawMainScreen(sc)
                 clock = pygame.time.Clock()
                 sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
                 start_ticks = pygame.time.get_ticks()
@@ -46,6 +48,8 @@ while True:
             pygame.mouse.set_visible(True)
             start_game(sc)
             a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT = create_labirint()
+            player = Player()
+            draw = DrawMainScreen(sc)
             clock = pygame.time.Clock()
             sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
             start_ticks = pygame.time.get_ticks()
@@ -57,6 +61,8 @@ while True:
         start_ticks += seconds
         if flag_1:
             a, b, tex, matrix_map, WORLD_WIDTH, WORLD_HEIGHT = create_labirint()
+            player = Player()
+            draw = DrawMainScreen(sc)
             clock = pygame.time.Clock()
             sc_map = pygame.Surface(((2 * a + 1) * MAP_TILE_SIZE, (2 * b + 1) * MAP_TILE_SIZE))
             start_ticks = pygame.time.get_ticks()
