@@ -79,6 +79,8 @@ def create_labirint():
     mini_map.clear()
     collision_walls.clear()
     a, b, tex = game_init(sc)
+    if a == b == tex == 0:
+        return 0, 0, 0, 0, 0, 0
     maze_map = Maze(a, b)
     maze_map.generate()
     matrix_map = maze_map.to_list_representation(tex)

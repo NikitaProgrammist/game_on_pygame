@@ -15,9 +15,9 @@ class DrawMainScreen:
                                                            self.textures[i].get_size()[0]))
 
     def load_textures(self):
-        textures = {f'S{i}': f'img/sky{i}.png' for i in range(1, 9)}
-        textures.update({i: f'img/wall{i}.png' for i in range(1, 9)})
-        textures.update({i: f'img/exit{i - 10}.png' for i in range(11, 19)})
+        textures = {f'S{i}': f'dist/img/sky{i}.png' for i in range(1, 9)}
+        textures.update({i: f'dist/img/wall{i}.png' for i in range(1, 9)})
+        textures.update({i: f'dist/img/exit{i - 10}.png' for i in range(11, 19)})
         return {key: pygame.image.load(path).convert() for key, path in textures.items()}
 
     def background(self, angle, tex):

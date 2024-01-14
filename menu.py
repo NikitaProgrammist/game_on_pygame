@@ -3,7 +3,7 @@ import sqlite3
 from buttons import Button
 
 
-image = pygame.image.load('img/menu.png')
+image = pygame.image.load('dist/img/menu.png')
 image = pygame.transform.scale(image, sc.get_size())
 
 
@@ -14,7 +14,7 @@ def table(sc):
     count = sc.get_size()[1] // cell_height
     start = 0
     stop = count
-    con = sqlite3.connect('records.sqlite')
+    con = sqlite3.connect('dist/records.sqlite')
     cur = con.cursor()
     result = cur.execute("SELECT width, height, minutes, seconds, location from record").fetchall()
     result = sorted(result, key=lambda x: x[0] + x[1])
@@ -58,10 +58,10 @@ def start_game(sc):
         sc.blit(text_surface, text_rect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                quit()
+                return False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    quit()
+                    return False
         flag_1 = button_1.process()
         flag_2 = button_2.process()
         flag_3 = button_3.process()
@@ -70,7 +70,7 @@ def start_game(sc):
         if flag_2:
             table(sc)
         if flag_3:
-            quit()
+            return False
         pygame.display.flip()
         clock.tick(60)
 
@@ -91,10 +91,10 @@ def game_init(sc):
         sc.blit(text_surface, text_rect)
         for i, btn in enumerate(location_buttons, 1):
             pygame.draw.rect(sc, (0, 0, 0), btn)
-            sc.blit(pygame.image.load(f'img/location{i}.png'), (btn.x, btn.y))
+            sc.blit(pygame.image.load(f'dist/img/location{i}.png'), (btn.x, btn.y))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                quit()
+                return 0, 0, 0
             if event.type == pygame.MOUSEBUTTONDOWN:
                 for i, btn in enumerate(location_buttons, 1):
                     if btn.collidepoint(event.pos):
@@ -102,7 +102,7 @@ def game_init(sc):
                         run = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    quit()
+                    return 0, 0, 0
         pygame.display.flip()
     clock = pygame.time.Clock()
     font = pygame.font.Font(None, 50)
@@ -118,13 +118,13 @@ def game_init(sc):
         sc.blit(text_surface_2, text_rect_2)
         sc.blit(text_surface_3, text_rect_3)
         rect = pygame.Rect((sc.get_size()[0] - 200) // 2, 400, 200, 70)
-        pygame.draw.rect(sc, (0, 0, 0), rect, 1)
+        pygame.draw.rect(sc, (0, 0, 0), rect, 3)
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 finput = True
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    quit()
+                    return 0, 0, 0
             if finput and event.type == pygame.KEYDOWN:
                 text = text.replace('|', '')
                 tick = 30
@@ -175,7 +175,7 @@ def menu(sc):
         sc.blit(text_surface, text_rect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                quit()
+                return False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     return
@@ -191,13 +191,13 @@ def menu(sc):
             table(sc)
             flag = True
         if flag_3:
-            quit()
+            return False
         pygame.display.flip()
         clock.tick(60)
 
 
 def win(sc, minutes, seconds, a, b, tex):
-    con = sqlite3.connect('records.sqlite')
+    con = sqlite3.connect('dist/records.sqlite')
     cur = con.cursor()
     result = cur.execute(f"""SELECT * FROM record WHERE width = {a} AND height = {b}""").fetchone()
     if not result:
