@@ -7,8 +7,8 @@ class Player:
         self.position = pygame.math.Vector2((125, 125))
         self.angle = 4 * math.pi / 3
         self.sensitivity = 0.01
-        self.move_speed = 2
-        self.rotation_speed = 0.02
+        self.move_speed = sc.get_size()[0] / 800
+        self.rotation_speed = 0.01
         self.mouse_move = True
         self.side = 50
         self.rect = pygame.Rect(*self.position, self.side, self.side)
@@ -85,9 +85,9 @@ class Player:
         if keys[pygame.K_d]:
             move_vector -= self.move_speed * pygame.math.Vector2(sin_a, -cos_a)
         if keys[pygame.K_LSHIFT]:
-            self.move_speed = 5
+            self.move_speed = sc.get_size()[0] / 425
         else:
-            self.move_speed = 2
+            self.move_speed = sc.get_size()[0] / 800
 
         corrected_move = self.detect_collision(move_vector)
         self.position += corrected_move
