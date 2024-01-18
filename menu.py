@@ -210,10 +210,10 @@ def win(sc, minutes, seconds, a, b, tex):
     con.commit()
     con.close()
     font = pygame.font.Font(None, 75)
-    text_surface = font.render('Поздравляю!', True, (255, 255, 255))
+    text_surface = font.render('Поздравляю!', True, (0, 0, 0))
     text_rect = text_surface.get_rect()
     text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, sc.get_size()[1] // 2 - text_rect.height // 2 - 200)
-    text_surface_1 = font.render(f'Вы прошли лабиринт {a} на {b} за {minutes}: {seconds:02}', True, (255, 255, 255))
+    text_surface_1 = font.render(f'Вы прошли лабиринт {a} на {b} за {minutes}: {seconds:02}', True, (0, 0, 0))
     text_rect_1 = text_surface.get_rect()
     text_rect_1.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2 - 250, sc.get_size()[1] // 2 - text_rect.height // 2)
     while True:
