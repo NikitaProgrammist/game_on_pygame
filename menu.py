@@ -49,7 +49,7 @@ def start_game(sc):
     button_1 = Button(sc.get_size()[0] // 2 - 125, 200, 250, 70, font, 'новая игра')
     button_2 = Button(sc.get_size()[0] // 2 - 125, 300, 250, 70, font, 'рекорды')
     button_3 = Button(sc.get_size()[0] // 2 - 125, 400, 250, 70, font, 'выйти из игры')
-    text_surface = font.render('ЗАТЕРЯННЫЙ В ЛАБИРИНТЕ', True, (0, 0, 0))
+    text_surface = font.render('ЗАТЕРЯННЫЙ В ЛАБИРИНТЕ', True, (255, 255, 255))
     text_rect = text_surface.get_rect()
     text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, 100)
     clock = pygame.time.Clock()
@@ -81,7 +81,7 @@ def game_init(sc):
     tick = 30
     pygame.display.set_caption('Меню Игры')
     font = pygame.font.Font(None, 50)
-    text_surface = font.render('Выберите локацию, на которой вы хотите проходить лабиринт.', True, (0, 0, 0))
+    text_surface = font.render('Выберите локацию, на которой вы хотите проходить лабиринт.', True, (255, 255, 255))
     text_rect = text_surface.get_rect()
     text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, 100)
     location_buttons = [pygame.Rect(sc.get_size()[0] // 2 - 580 + 300 * i, 250, 250, 250) for i in range(4)] + [pygame.Rect(sc.get_size()[0] // 2 - 580 + 300 * i, 550, 250, 250) for i in range(4)]
@@ -106,11 +106,11 @@ def game_init(sc):
         pygame.display.flip()
     clock = pygame.time.Clock()
     font = pygame.font.Font(None, 50)
-    text_surface_2 = font.render('Укажите размеры лабиринта через запятую.', True, (0, 0, 0))
+    text_surface_2 = font.render('Укажите размеры лабиринта через запятую.', True, (255, 255, 255))
     text_rect_2 = text_surface_2.get_rect()
     text_rect_2.topleft = (sc.get_size()[0] // 2 - text_rect_2.width // 2, 100)
     font = pygame.font.Font(None, 50)
-    text_surface_3 = font.render('Они должны лежать в диапазоне от 5 до 100. (например: 10, 10)', True, (0, 0, 0))
+    text_surface_3 = font.render('Они должны лежать в диапазоне от 5 до 100. (например: 10, 10)', True, (255, 255, 255))
     text_rect_3 = text_surface_3.get_rect()
     text_rect_3.topleft = (sc.get_size()[0] // 2 - text_rect_3.width // 2, 200)
     while True:
@@ -118,6 +118,7 @@ def game_init(sc):
         sc.blit(text_surface_2, text_rect_2)
         sc.blit(text_surface_3, text_rect_3)
         rect = pygame.Rect((sc.get_size()[0] - 200) // 2, 400, 200, 70)
+        pygame.draw.rect(sc, (128, 128, 128), rect)
         pygame.draw.rect(sc, (0, 0, 0), rect, 3)
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -149,7 +150,7 @@ def game_init(sc):
                 tick = 30
         if text:
             font = pygame.font.Font(None, 50)
-            text_surface_4 = font.render(text, True, (0, 0, 0))
+            text_surface_4 = font.render(text, True, (255, 255, 255))
             text_rect_4 = text_surface_3.get_rect()
             text_rect_4.topleft = (rect.x + 20, rect.y + 15)
             sc.blit(text_surface_4, text_rect_4)
@@ -163,7 +164,7 @@ def menu(sc):
     button_1 = Button(sc.get_size()[0] // 2 - 175, 400, 350, 70, font, 'новая игра')
     button_2 = Button(sc.get_size()[0] // 2 - 175, 500, 350, 70, font, 'рекорды')
     button_3 = Button(sc.get_size()[0] // 2 - 175, 600, 350, 70, font, 'выйти из игры')
-    text_surface = font.render('ЗАТЕРЯННЫЙ В ЛАБИРИНТЕ', True, (0, 0, 0))
+    text_surface = font.render('ЗАТЕРЯННЫЙ В ЛАБИРИНТЕ', True, (255, 255, 255))
     text_rect = text_surface.get_rect()
     text_rect.topleft = (sc.get_size()[0] // 2 - text_rect.width // 2, 200)
     clock = pygame.time.Clock()
