@@ -6,7 +6,7 @@ class Player:
     def __init__(self):
         self.position = pygame.math.Vector2((125, 125))
         self.angle = 4 * math.pi / 3
-        self.sensitivity = 0.01
+        self.sensitivity = 0.005
         self.move_speed = sc.get_size()[0] / 800
         self.rotation_speed = 0.01
         self.mouse_move = True
